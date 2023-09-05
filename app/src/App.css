@@ -1,0 +1,25 @@
+.rounded {
+  border-radius: 18px !important;
+}
+
+.bg-custom1 {
+  background-color: #f7fbfc;
+  border-top: 1px solid #e0eef2;
+  border-bottom: 1px solid #e0eef2;
+}
+
+.w-card {
+  width: 6rem;
+}
+
+.bg-custom2 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.border-custom1 {
+  border: 1px solid #e0eef2;
+}
+
+.text-icon {
+  color: #909a9c;
+}
