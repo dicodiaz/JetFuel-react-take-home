@@ -11,6 +11,7 @@ const Media = ({ media }) => {
   } = media;
   const [showPopover, setShowPopover] = useState(false);
   const [timeoutId, setTimeoutId] = useState(false);
+  const [play, setPlay] = useState(false);
   const anchorRef = useRef(null);
 
   const handleLinkButtonClick = () => {
@@ -31,13 +32,28 @@ const Media = ({ media }) => {
     anchorRef.current.click();
   };
 
+  const handlePlayButtonClick = () => {
+    setPlay(true);
+  };
+
   return (
     <Col className="px-2 d-flex flex-column">
       <Card className="w-card mb-1 flex-grow-1">
-        <Card.Img src={coverPhoto} alt={coverPhoto} />
-        <Card.ImgOverlay className="bg-custom2 d-flex justify-content-center align-items-center">
-          {mediaType === 'video' && <FaPlay className="text-white fs-2" />}
-        </Card.ImgOverlay>
+        {play ? (
+          <video controls autoPlay>
+            <source src={downloadUrl} type="video/mp4" />
+            Sorry, your browser doesn&apos;t support embedded videos.
+          </video>
+        ) : (
+          <>
+            <Card.Img src={coverPhoto} alt={coverPhoto} />
+            <Card.ImgOverlay className="bg-custom2 d-flex justify-content-center align-items-center">
+              {mediaType === 'video' && (
+                <FaPlay className="text-white fs-2" onClick={handlePlayButtonClick} />
+              )}
+            </Card.ImgOverlay>
+          </>
+        )}
       </Card>
       <ButtonGroup className="w-100">
         <OverlayTrigger
@@ -63,7 +79,7 @@ const Media = ({ media }) => {
           <FaDownload className="text-icon fs-5" />
         </Button>
       </ButtonGroup>
-      <a className="invisible" download="video.mp3" ref={anchorRef} />
+      <a className="invisible" download="video.mp4" ref={anchorRef} />
     </Col>
   );
 };
