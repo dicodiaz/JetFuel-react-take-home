@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react';
 import { Button, ButtonGroup, Card, Col, OverlayTrigger, Popover } from 'react-bootstrap';
 import { FaDownload, FaLink, FaPlay } from 'react-icons/fa';
+import { LazyLoadImage, trackWindowScroll } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
-const Media = ({ media }) => {
+const Media = ({ media, scrollPosition }) => {
   const {
     cover_photo_url: coverPhoto,
     download_url: downloadUrl,
@@ -46,7 +48,13 @@ const Media = ({ media }) => {
           </video>
         ) : (
           <>
-            <Card.Img src={coverPhoto} alt={coverPhoto} />
+            <LazyLoadImage
+              src={coverPhoto}
+              alt="..."
+              width="100%"
+              effect="blur"
+              scrollPosition={scrollPosition}
+            />
             <Card.ImgOverlay className="bg-custom2 d-flex justify-content-center align-items-center">
               {mediaType === 'video' && (
                 <FaPlay className="text-white fs-2" onClick={handlePlayButtonClick} />
@@ -84,4 +92,6 @@ const Media = ({ media }) => {
   );
 };
 
-export default Media;
+const TrackWindowScrollMedia = trackWindowScroll(Media);
+
+export default TrackWindowScrollMedia;
