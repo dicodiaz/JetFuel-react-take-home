@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, Row, Spinner } from 'react-bootstrap';
+import ReactPullToRefresh from 'react-pull-to-refresh';
 import './App.css';
 import Campaign from './components/Campaign';
 
@@ -49,12 +50,18 @@ const App = () => {
     );
   }
 
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
-    <Container className="py-5 px-0">
-      {data.campaigns.map((campaign) => {
-        return <Campaign key={campaign.id} campaign={campaign} />;
-      })}
-    </Container>
+    <ReactPullToRefresh onRefresh={handleRefresh}>
+      <Container className="py-5 px-0">
+        {data.campaigns.map((campaign) => {
+          return <Campaign key={campaign.id} campaign={campaign} />;
+        })}
+      </Container>
+    </ReactPullToRefresh>
   );
 };
 

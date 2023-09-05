@@ -2,7 +2,6 @@ import Headline from './Headline';
 import Medias from './Medias';
 
 const Campaign = ({ campaign }) => {
-  console.log(campaign);
   const {
     campaign_icon_url: icon,
     campaign_name: name,
