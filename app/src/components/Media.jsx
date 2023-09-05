@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, ButtonGroup, Card, Col, OverlayTrigger, Popover } from 'react-bootstrap';
 import { FaDownload, FaLink, FaPlay } from 'react-icons/fa';
 
@@ -11,6 +11,7 @@ const Media = ({ media }) => {
   } = media;
   const [showPopover, setShowPopover] = useState(false);
   const [timeoutId, setTimeoutId] = useState(false);
+  const anchorRef = useRef(null);
 
   const handleLinkButtonClick = () => {
     clearTimeout(timeoutId);
@@ -26,12 +27,8 @@ const Media = ({ media }) => {
     );
     const blob = await response.blob();
     const url = window.URL.createObjectURL(new Blob([blob]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'video.mp3';
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode.removeChild(link);
+    anchorRef.current.href = url;
+    anchorRef.current.click();
   };
 
   return (
@@ -66,6 +63,7 @@ const Media = ({ media }) => {
           <FaDownload className="text-icon fs-5" />
         </Button>
       </ButtonGroup>
+      <a className="invisible" download="video.mp3" ref={anchorRef} />
     </Col>
   );
 };
